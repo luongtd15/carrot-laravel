@@ -13,6 +13,12 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::with('category')
+            ->orderByDesc('id')
+            ->paginate(12);
+        return view('products.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -34,9 +40,18 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
         //
+        $product = Product::with('category')->find($id);
+        $bestsellers = Product::with('category')
+            ->orderByDesc('sold_count')
+            ->take(10)
+            ->get();
+        return view('products.show', [
+            'product' => $product,
+            'bestsellers' => $bestsellers
+        ]);
     }
 
     /**
