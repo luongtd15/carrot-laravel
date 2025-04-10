@@ -30,6 +30,6 @@ class Address extends Model
 
     public function getFullAddressAttribute()
     {
-        return $this->address . ', ' . $this->commune . ', ' . $this->district . ', ' . $this->city;
+        return $this->address . ', ' . $this->commune . ' Commune, ' . $this->district . ' District, ' . $this->city;
     }
 }

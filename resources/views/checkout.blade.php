@@ -84,6 +84,11 @@
                             <div class="cr-checkout-wrap">
                                 <div class="cr-checkout-block cr-check-bill">
                                     <h3 class="cr-checkout-title">Shipping Address</h3>
+                                    @if (session('error'))
+                                        <div class="alert alert-danger">
+                                            {{ session('error') }}
+                                        </div>
+                                    @endif
                                     <div class="cr-bl-block-content">
                                         <div class="cr-check-bill-form mb-minus-24">
                                             <form action="{{ route('order.add') }}" method="post">

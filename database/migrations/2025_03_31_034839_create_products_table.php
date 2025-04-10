@@ -35,7 +35,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->string('image_path');
-            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')

@@ -13,6 +13,24 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        $userID = Auth::user()->id;
+        $orders = Order::with('orderDetails.product')
+            ->where('user_id', '=', $userID)
+            ->orderByDesc('id')
+            ->get();
+        // dd($order);
+        return view(
+            'orders.index',
+            [
+                'user' => $userID,
+                'orders' => $orders
+            ]
+        );
+    }
+
     public function store(Request $request)
     {
         $userId = Auth::user()->id;
@@ -53,7 +71,7 @@ class OrderController extends Controller
             if (!$address) {
                 return redirect()->back()->with('error', 'Địa chỉ không hợp lệ!');
             }
-        } elseif ($request->filled('new_address.address')) {
+        } elseif ($request->filled('new_address.address', 'new_address.commune', 'new_address.district', 'new_address.city')) {
             // Người dùng nhập địa chỉ mới
             $newAddressData = $request->input('new_address');
             $address = Address::create([
@@ -66,7 +84,7 @@ class OrderController extends Controller
             ]);
             $addressId = $address->id;
         } else {
-            return redirect()->back()->with('error', 'Vui lòng chọn hoặc nhập địa chỉ giao hàng!');
+            return redirect()->back()->with('error', 'Choose or input a new address pls!');
         }
 
         // Bắt đầu transaction
@@ -91,10 +109,11 @@ class OrderController extends Controller
 
                 $product = $item->product;
                 $newQuantity = $product->quantity - $item->quantity;
+                $newSold = $product->sold_count + $item->quantity;
                 if ($newQuantity < 0) {
                     throw new \Exception("Sản phẩm {$product->name} không đủ hàng trong kho!");
                 }
-                $product->update(['quantity' => $newQuantity]);
+                $product->update(['quantity' => $newQuantity, 'sold_count' => $newSold]);
             }
 
             // Xóa giỏ hàng
@@ -145,6 +164,64 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Đơn hàng không tồn tại hoặc bạn không có quyền xem!');
         }
 
-        return view('order', compact('order', 'totalPrice'));
+        return view('orders.show', compact('order', 'totalPrice'));
+    }
+
+
+    public function cancel($userId, $orderId)
+    {
+        // Kiểm tra quyền: đảm bảo user đang đăng nhập khớp với userId từ tham số
+        if (Auth::user()->id != $userId) {
+            return redirect()->back()->with('error', 'Bạn không có quyền hủy đơn hàng này!');
+        }
+
+        try {
+            // Tìm đơn hàng
+            $order = Order::where('user_id', $userId)
+                ->where('id', $orderId)
+                ->with('orderDetails.product') // Eager load để tối ưu
+                ->firstOrFail();
+
+            // Kiểm tra trạng thái đơn hàng - mở rộng danh sách không thể hủy
+            $cannotCancelStatuses = ['canceled', 'delivering', 'delivered', 'completed'];
+            if (in_array($order->status, $cannotCancelStatuses)) {
+                return redirect()->back()->with('error', 'You cannot cancel this order now!');
+            }
+
+            // Bắt đầu transaction để đảm bảo tính toàn vẹn dữ liệu
+            DB::beginTransaction();
+            try {
+                // Cập nhật trạng thái đơn hàng thành 'canceled'
+                $order->status = 'canceled';
+                $order->save();
+
+                // Hoàn trả số lượng sản phẩm
+                foreach ($order->orderDetails as $orderDetail) {
+                    $product = $orderDetail->product;
+                    if ($product) { // Kiểm tra sản phẩm tồn tại
+                        $product->quantity += $orderDetail->quantity;
+                        $product->sold_count -= $orderDetail->quantity;
+                        if ($product->sold_count < 0) {
+                            $product->sold_count = 0; // Đảm bảo sold_count không âm
+                        }
+                        // Cập nhật lại số lượng sản phẩm
+                        $product->save();
+                    } else {
+                        throw new \Exception("This product is not exist in #{$orderDetail->id}!");
+                    }
+                }
+
+                // Commit transaction
+                DB::commit();
+
+                return redirect()->back()->with('success', 'The order has been successfully canceled, and the product quantities have been returned.');
+            } catch (\Exception $e) {
+                // Rollback nếu có lỗi
+                DB::rollBack();
+                return redirect()->back()->with('error', 'Order cancel error: ' . $e->getMessage());
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Order is not exist!');
+        }
     }
 }

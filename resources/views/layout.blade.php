@@ -72,6 +72,8 @@
                                                 <li>
                                                     <a href="">{{ Auth::user()->name }}</a>
                                                 </li>
+                                                <li><a href="{{ route('orders', ['user' => Auth::user()->id]) }}">My
+                                                        Orders</a></li>
                                                 <style>
                                                     .dropdown-button {
                                                         display: block;

@@ -16,6 +16,7 @@ class ProductController extends Controller
         $products = Product::with('category')
             ->orderByDesc('id')
             ->paginate(12);
+        // dd($products);
         return view('products.index', [
             'products' => $products,
         ]);
@@ -43,7 +44,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-        $product = Product::with('category')->find($id);
+        $product = Product::with('category')->findOrFail($id);
         $bestsellers = Product::with('category')
             ->orderByDesc('sold_count')
             ->take(10)

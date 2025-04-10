@@ -430,7 +430,7 @@
             function deleteCartItem(event, itemId, button) {
                 event.preventDefault();
 
-                if (!confirm('Bạn có chắc muốn xóa sản phẩm này không?')) {
+                if (!confirm('Remove this product?')) {
                     return;
                 }
 
@@ -445,7 +445,7 @@
                         if (res.success) {
                             $(button).closest('tr').remove();
                             $("#cart-grand-total").text("$" + numberFormat(res.cart_total));
-                            alert('Sản phẩm đã được xóa khỏi giỏ hàng!');
+                            alert('Product removed successfully!');
 
                             // Kiểm tra nếu giỏ hàng trống thì reload trang
                             if ($('tbody tr').length === 0) {

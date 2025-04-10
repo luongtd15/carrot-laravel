@@ -21,10 +21,6 @@ class CheckRole
             return redirect()->route('login'); // Chuyển hướng đến trang login nếu chưa đăng nhập
         }
 
-        if (Auth::user()->role === 'user') {
-            return redirect()->route('home'); // Chuyển hướng đến trang home nếu là user
-        }
-
         if (!in_array(Auth::user()->role, $roles)) {
             return abort(403, 'You do not have permission to access this resource');
         }
