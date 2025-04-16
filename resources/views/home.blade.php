@@ -212,7 +212,8 @@
                                                 </span>
                                             </p>
                                             <div class="cr-product-banner-buttons">
-                                                <a href="{{ route('category.show', $category->id) }}" class="cr-button">shop now</a>
+                                                <a href="{{ route('category.show', $category->id) }}"
+                                                    class="cr-button">shop now</a>
                                             </div>
                                         </div>
                                     </div>

@@ -97,7 +97,8 @@
                                                 </div>
                                                 <div class="cr-pro-content cr-product-details">
                                                     <h5 class="cr-pro-title">
-                                                        <a href="">
+                                                        <a
+                                                            href="{{ route('product.show', ['id' => $item->product->id]) }}">
                                                             {{ $item->product->name }} <span>
                                                                 <span class="cr-pro-quantity">x{{ $item->quantity }}</span>
                                                         </a>
@@ -149,8 +150,8 @@
                                                 action="{{ route('order.cancel', ['user' => Auth::user()->id, 'order' => $order->id]) }}"
                                                 method="POST">
                                                 @csrf
-                                                <button class="btn btn-danger btn-lg w-100" type="submit" 
-                                                onclick="return confirm('Cancel this order?')">Cancel
+                                                <button class="btn btn-danger btn-lg w-100" type="submit"
+                                                    onclick="return confirm('Cancel this order?')">Cancel
                                                     Order</button>
                                             </form>
                                         </div>

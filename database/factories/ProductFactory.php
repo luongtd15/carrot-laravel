@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -30,7 +31,7 @@ class ProductFactory extends Factory
 
         $price = fake()->randomFloat(2, 10, 200); // Price from $10 to $200
         $salePrice = fake()->optional(0.3)->randomFloat(2, 5, $price - 1);
-
+        $images = 'https://i.pinimg.com/736x/7f/27/28/7f2728450119d9d05bde3d150e115207.jpg';
         return [
             'name' => $name,
             'slug' => Str::slug($name . '-' . fake()->unique()->numberBetween(1, 1000)), // Unique slug
@@ -45,6 +46,7 @@ class ProductFactory extends Factory
             'is_featured' => fake()->boolean(50), // 20% chance of being featured
             'created_at' => now(),
             'updated_at' => now(),
+            'image' => $images,
         ];
     }
 }

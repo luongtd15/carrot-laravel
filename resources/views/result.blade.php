@@ -81,7 +81,19 @@
                                     <div class="cr-product-card">
                                         <div class="cr-product-image">
                                             <div class="cr-image-inner zoom-image-hover">
-                                                <img src="assets/img/product/1.jpg" alt="product-1">
+                                                @if ($product->image)
+                                                    @if (filter_var($product->image, FILTER_VALIDATE_URL))
+                                                        <img src="{{ $product->image }}" alt="product-tab-1"
+                                                            class="product-image">
+                                                    @else
+                                                        <img src="{{ Storage::URL($product->image) }}" alt="product-tab-1"
+                                                            class="product-image">
+                                                    @endif
+                                                @else
+                                                    <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                                        No Image
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="cr-side-view">
                                                 <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"

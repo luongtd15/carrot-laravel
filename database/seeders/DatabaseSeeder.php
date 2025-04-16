@@ -49,5 +49,7 @@ class DatabaseSeeder extends Seeder
         Cart::factory(20)->create();
 
         \App\Models\Address::factory(10)->create();
+
+        \App\Models\Comment::factory(100)->create();
     }
 }

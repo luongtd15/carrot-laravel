@@ -5723,7 +5723,7 @@ ul.navbar-nav .dropdown:hover .dropdown-menu {
 }
 .cr-tab-content-from .post .cr-t-review-rating .ri-star-s-fill {
   color: #f5885f;
-  letter-spacing: -5px;
+  /* letter-spacing: -5px; */
 }
 .cr-tab-content-from .post .cr-t-review-rating .ri-star-s-line {
   color: #999;

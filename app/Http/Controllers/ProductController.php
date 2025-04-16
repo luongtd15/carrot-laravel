@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -44,14 +49,39 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-        $product = Product::with('category')->findOrFail($id);
+        $product = Product::with(['category', 'comments', 'images'])->findOrFail($id);
         $bestsellers = Product::with('category')
             ->orderByDesc('sold_count')
             ->take(10)
             ->get();
+
+        $canReview = false;
+
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+
+            // Tìm đơn hàng hợp lệ
+            $validOrder = OrderDetail::where('product_id', $product->id)
+                ->whereHas('order', function ($query) use ($userId) {
+                    $query->where('user_id', $userId)
+                        ->where('status', 'completed')
+                        ->whereDate('updated_at', '>=', now()->subDays(7)); // hoặc 'completed_at' nếu có
+                })
+                ->first();
+
+            if ($validOrder) {
+                // Kiểm tra chưa có comment nào của user cho sản phẩm này
+                $hasCommented = Comment::where('user_id', $userId)
+                    ->where('product_id', $product->id)
+                    ->exists();
+
+                $canReview = !$hasCommented;
+            }
+        }
         return view('products.show', [
             'product' => $product,
-            'bestsellers' => $bestsellers
+            'bestsellers' => $bestsellers,
+            'canReview' => $canReview,
         ]);
     }
 

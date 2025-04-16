@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="top-header">
-                        <a href="index.html" class="cr-logo">
+                        <a href="{{ route('home') }}" class="cr-logo">
                             <img src="{{ asset('assets/img/logo/logo.png') }}" alt="logo" class="logo">
                             <img src="{{ asset('assets/img/logo/dark-logo.png') }}" alt="logo" class="dark-logo">
                         </a>
@@ -70,7 +70,8 @@
                                         <ul class="dropdown-menu">
                                             @if (isset(Auth::user()->role) && Auth::user()->role == 'user')
                                                 <li>
-                                                    <a href="">{{ Auth::user()->name }}</a>
+                                                    <a
+                                                        href="{{ route('user.profile.edit', Auth::user()->id) }}">{{ Str::limit(Auth::user()->name, 12, '...') }}</a>
                                                 </li>
                                                 <li><a href="{{ route('orders', ['user' => Auth::user()->id]) }}">My
                                                         Orders</a></li>
@@ -351,7 +352,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">
+                                    <a class="nav-link" href="{{ route('home') }}">
                                         Home
                                     </a>
                                 </li>
@@ -376,7 +377,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="{{ route('products') }}">
                                         Products
                                     </a>
                                 </li>
@@ -484,8 +485,9 @@
                 <div class="col-xl-6 col-lg-6 col-sm-12 col-12 cr-footer-border">
                     <div class="cr-footer-logo">
                         <div class="image">
-                            <img src="assets/img/logo/logo.png" alt="logo" class="logo">
-                            <img src="assets/img/logo/dark-logo.png" alt="logo" class="dark-logo">
+                            <img src="{{ asset('assets/img/logo/logo.png') }}" alt="logo" class="logo">
+                            <img src="{{ asset('assets/img/logo/dark-logo.png') }}" alt="logo"
+                                class="dark-logo">
                         </div>
                         <p>Carrot is the biggest market of grocery products. Get your daily needs from our store.</p>
                     </div>
@@ -563,99 +565,6 @@
 
     <!-- Cart -->
 
-    <!-- Side-tool -->
-    <div class="cr-tool-overlay"></div>
-    <div class="cr-tool">
-        <div class="cr-tool-btn">
-            <a href="javascript:void(0)" class="btn-cr-tool result-placeholder">
-                <i class="ri-settings-line"></i>
-            </a>
-            <div class="color-variant">
-                <div class="cr-bar-title">
-                    <h6>Tools</h6>
-                    <a href="javascript:void(0)" class="close-tools">
-                        <i class="ri-close-line"></i>
-                    </a>
-                </div>
-                <div class="cr-tools-detail">
-                    <div class="heading">
-                        <h2>Select Color</h2>
-                    </div>
-                    <ul class="cr-color">
-                        <li class="colors c1 active-colors">
-                        </li>
-                        <li class="colors c2">
-                        </li>
-                        <li class="colors c3">
-                        </li>
-                        <li class="colors c4">
-                        </li>
-                        <li class="colors c5">
-                        </li>
-                        <li class="colors c6">
-                        </li>
-                        <li class="colors c7">
-                        </li>
-                        <li class="colors c8">
-                        </li>
-                        <li class="colors c9">
-                        </li>
-                        <li class="colors c10">
-                        </li>
-                    </ul>
-                </div>
-                <div class="cr-tools-detail">
-                    <div class="heading">
-                        <h2>Dark mode</h2>
-                    </div>
-                    <ul class="dark-mode">
-                        <li class="dark">
-                        </li>
-                        <li class="white active-dark-mode">
-                        </li>
-                    </ul>
-                </div>
-                <div class="cr-tools-detail">
-                    <div class="heading">
-                        <h2>RTL mode</h2>
-                    </div>
-                    <ul class="rtl-mode">
-                        <li class="rtl">
-                            <img src="assets/img/tool/rtl.png" alt="rtl">
-                        </li>
-                        <li class="ltr active-rtl-mode">
-                            <img src="assets/img/tool/ltr.png" alt="ltr">
-                        </li>
-                    </ul>
-                </div>
-                <div class="cr-tools-detail">
-                    <div class="heading">
-                        <h2>Backgrounds</h2>
-                    </div>
-                    <ul class="bg-panel">
-                        <li class="bg-1">
-                            <img src="assets/img/shape/bg-shape-1.png" alt="bg-shape-1">
-                        </li>
-                        <li class="bg-2">
-                            <img src="assets/img/shape/bg-shape-2.png" alt="bg-shape-2">
-                        </li>
-                        <li class="bg-3">
-                            <img src="assets/img/shape/bg-shape-3.png" alt="bg-shape-3">
-                        </li>
-                        <li class="bg-4">
-                            <img src="assets/img/shape/bg-shape-4.png" alt="bg-shape-4">
-                        </li>
-                        <li class="bg-5">
-                            <img src="assets/img/shape/bg-shape-5.png" alt="bg-shape-5">
-                        </li>
-                        <li class="bg-6 active-bg-panel">
-                            <img src="assets/img/shape/bg-shape-6.png" alt="bg-shape-6">
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="{{ asset('assets/js/vendor/jquery-3.6.4.min.js') }}"></script>
     <script src="{{ asset('assets/js/vendor/jquery.zoom.min.js') }}"></script>

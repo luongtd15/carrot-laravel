@@ -3,6 +3,37 @@
 @section('title', 'Product Details')
 
 @section('content')
+    <style>
+        /* Custom Star CSS */
+        .star-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .star-icon::before {
+            content: "★";
+            font-size: 24px;
+            color: #ccc;
+            /* Màu sao không được chọn */
+            transition: all 0.2s ease;
+        }
+
+        .star-icon.active::before,
+        .star-icon:hover::before {
+            color: #ffc107;
+            /* Màu sao được chọn/hover */
+            text-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+        }
+
+        /* Optional: Hiệu ứng khi hover */
+        .cr-t-review-rating:hover .star-icon::before {
+            transform: scale(1.1);
+        }
+    </style>
     <!-- Breadcrumb -->
     <section class="section-breadcrumb">
         <div class="cr-breadcrumb-image">
@@ -29,10 +60,29 @@
                             <div class="slider slider-for">
                                 <div class="slider-banner-image">
                                     <div class="zoom-image-hover">
-                                        <img src="{{ Storage::URL($product->image) }}" alt="product-tab-1"
-                                            class="product-image">
+                                        @if ($product->image)
+                                            @if (filter_var($product->image, FILTER_VALIDATE_URL))
+                                                <img src="{{ $product->image }}" alt="product-tab-1" class="product-image">
+                                            @else
+                                                <img src="{{ Storage::URL($product->image) }}" alt="product-tab-1"
+                                                    class="product-image">
+                                            @endif
+                                        @else
+                                            <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                                No Image
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
+                            </div>
+                            <div class="slider slider-nav thumb-image">
+                                @foreach ($product->images as $image)
+                                    <div class="thumbnail-image">
+                                        <div class="thumbImg">
+                                            <img src="{{ Storage::URL($image->image_path) }}" alt="product-tab-1">
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -100,7 +150,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review"
                                     type="button" role="tab" aria-controls="review"
-                                    aria-selected="false">Review</button>
+                                    aria-selected="false">Comment</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -115,67 +165,86 @@
                             <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                 <div class="cr-tab-content-from">
                                     <div class="post">
-                                        <div class="content">
-                                            <img src="assets/img/review/1.jpg" alt="review">
-                                            <div class="details">
-                                                <span class="date">Jan 08, 2024</span>
-                                                <span class="name">Oreo Noman</span>
+                                        @foreach ($product->comments as $comment)
+                                            <div class="content mt-30">
+                                                <div class="details">
+                                                    <span class="date">{{ $comment->created_at }}</span>
+                                                    <span class="name">{{ $comment->user->name }}</span>
+                                                </div>
+                                                <div class="cr-t-review-rating">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $comment->rating)
+                                                            <i class="ri-star-s-fill"></i>
+                                                        @else
+                                                            <i class="ri-star-s-line"></i>
+                                                        @endif
+                                                    @endfor
+                                                </div>
                                             </div>
-                                            <div class="cr-t-review-rating">
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
+                                            <div class="content">
+                                                <p>{{ $comment->content }}</p>
                                             </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in vero
-                                            sapiente doloribus debitis corporis, eaque dicta, repellat amet, illum
-                                            adipisci vel
-                                            perferendis dolor! quae vero in perferendis provident quis.</p>
-                                        <div class="content mt-30">
-                                            <img src="assets/img/review/2.jpg" alt="review">
-                                            <div class="details">
-                                                <span class="date">Mar 22, 2024</span>
-                                                <span class="name">Lina Wilson</span>
-                                            </div>
-                                            <div class="cr-t-review-rating">
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-line"></i>
-                                            </div>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in vero
-                                            sapiente doloribus debitis corporis, eaque dicta, repellat amet, illum
-                                            adipisci vel
-                                            perferendis dolor! quae vero in perferendis provident quis.</p>
+                                            <hr>
+                                        @endforeach
                                     </div>
-
-                                    <h4 class="heading">Add a Review</h4>
-                                    <form action="javascript:void(0)">
-                                        <div class="cr-ratting-star">
-                                            <span>Your rating :</span>
-                                            <div class="cr-t-review-rating">
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-fill"></i>
-                                                <i class="ri-star-s-line"></i>
-                                                <i class="ri-star-s-line"></i>
-                                                <i class="ri-star-s-line"></i>
+                                    <div id="comment-form"></div>
+                                    @if (Auth::check() && Auth::user()->role == 'user' && $canReview)
+                                        <h4 class="heading">Add a Review</h4>
+                                        <form
+                                            action="{{ route('product.comment.store', [
+                                                'user' => auth()->id(),
+                                                'product' => $product->id,
+                                            ]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <div class="cr-ratting-star">
+                                                <span>Your rating :
+                                                    <div class="cr-t-review-rating">
+                                                        <i class="star-icon" data-rating="1"></i>
+                                                        <i class="star-icon" data-rating="2"></i>
+                                                        <i class="star-icon" data-rating="3"></i>
+                                                        <i class="star-icon" data-rating="4"></i>
+                                                        <i class="star-icon" data-rating="5"></i>
+                                                        <input type="hidden" name="rating" id="rating-value">
+                                                    </div>
+                                                    @error('rating')
+                                                        <div class="text-danger mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </span>
                                             </div>
-                                        </div>
-                                        <div class="cr-ratting-input">
-                                            <input name="your-name" placeholder="Name" type="text">
-                                        </div>
-                                        <div class="cr-ratting-input">
-                                            <input name="your-email" placeholder="Email*" type="email" required="">
-                                        </div>
-                                        <div class="cr-ratting-input form-submit">
-                                            <textarea name="your-commemt" placeholder="Enter Your Comment"></textarea>
-                                            <button class="cr-button" type="submit" value="Submit">Submit</button>
-                                        </div>
-                                    </form>
+                                            <div class="cr-ratting-input">
+                                                <input name="user_id" type="hidden" value="{{ auth()->id() }}">
+                                            </div>
+                                            <div class="cr-ratting-input">
+                                                <input name="product_id" type="hidden"
+                                                    value="{{ $product->id ?? '' }}">
+                                            </div>
+                                            <div class="cr-ratting-input">
+                                                <textarea name="content" placeholder="Enter Your Comment" class="cr-ratting-input"></textarea>
+                                            </div>
+                                            @error('content')
+                                                <div class="cr-ratting-star">
+                                                    <span>
+                                                        <div class="text-danger">
+                                                            {{ $message }}
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            @enderror
+                                            <div class="cr-ratting-input form-submit">
+                                                <button class="cr-button" type="submit" value="Submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    @elseif (!Auth::check() || Auth::user()->role != 'user')
+                                        <a href="{{ route('login') }}">
+                                            <div class="bg-white p-4 rounded shadow-sm">
+                                                <h4 class="heading">You must be logged in to add a review</h4>
+                                                <p>Please login to add a review.</p>
+                                            </div>
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -184,6 +253,18 @@
             </div>
         </div>
     </section>
+
+    @if (session('success'))
+        <script script>
+            alert('{{ session('success') }}');
+        </script>
+    @endif
+
+    @if (session('error_message'))
+        <script script>
+            alert('{{ session('error_message') }}');;
+        </script>
+    @endif
 
     <!-- Popular products -->
     <section class="section-popular-products padding-tb-100" data-aos="fade-up" data-aos-duration="800"
@@ -211,7 +292,19 @@
                                 <div class="cr-product-card">
                                     <div class="cr-product-image">
                                         <div class="cr-image-inner zoom-image-hover">
-                                            <img src="{{ Storage::URL($product->image) }}" alt="product-1">
+                                            @if ($product->image)
+                                                @if (filter_var($product->image, FILTER_VALIDATE_URL))
+                                                    <img src="{{ $product->image }}" alt="product-tab-1"
+                                                        class="product-image">
+                                                @else
+                                                    <img src="{{ Storage::URL($product->image) }}" alt="product-tab-1"
+                                                        class="product-image">
+                                                @endif
+                                            @else
+                                                <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                                    No Image
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="cr-side-view">
                                             <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
@@ -262,12 +355,13 @@
                     <div class="row">
                         <div class="col-md-5 col-sm-12 col-xs-12">
                             <div class="zoom-image-hover modal-border-image">
-                                <img src="assets/img/product/tab-1.jpg" alt="product-tab-2" class="product-image">
+                                <img src="{{ asset('assets/img/product/tab-1.jpg') }}" alt="product-tab-2"
+                                    class="product-image">
                             </div>
                         </div>
                         <div class="col-md-7 col-sm-12 col-xs-12">
                             <div class="cr-size-and-weight-contain">
-                                <h2 class="heading">Peach Seeds Of Change Oraganic Quinoa, Brown fruit</h2>
+                                <h2 class="heading">Peach Seeds Of Change Oraganic Quinoa, Brown product</h2>
                                 <p>Lorem Ipsum is simply dummy text of the printing and
                                     typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
                                     since the 1900s,</p>
@@ -505,6 +599,39 @@
                 var productId = $(this).data('id');
                 addToCart(productId, this);
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star-icon');
+            const ratingInput = document.getElementById('rating-value');
+            let currentRating = 0;
+
+            // Xử lý click
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    currentRating = parseInt(this.getAttribute('data-rating'));
+                    ratingInput.value = currentRating;
+                    console.log(currentRating);
+                    updateStars();
+                });
+            });
+
+            function updateStars() {
+                stars.forEach((s, index) => {
+                    s.classList.toggle('active', index < currentRating);
+                });
+            }
+
+            const hash = window.location.hash;
+
+            if (hash === '#review-tab') {
+                const reviewTab = document.querySelector('button[data-bs-target="#review"]');
+                if (reviewTab) {
+                    // Sử dụng Bootstrap tab API để kích hoạt
+                    const tab = new bootstrap.Tab(reviewTab);
+                    tab.show();
+                }
+            }
         });
     </script>
 @endsection

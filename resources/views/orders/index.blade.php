@@ -39,7 +39,7 @@
                 <div class="col-lg-9">
                     <div class="cr-common-wrapper spacing-991">
                         <div class="cr-cgi-block">
-                            @foreach ($orders as $order)
+                            @forelse ($orders as $order)
                                 <div class="d-flex justify-content-between mb-3 bg-light p-3 rounded align-items-center">
                                     <p class="flex-fill mb-0"><strong>Order#{{ $order->id }}</strong></p>
                                     <p class="flex-fill mb-0">{{ $order->status }}</p>
@@ -50,7 +50,13 @@
                                         Details
                                     </a>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="" style="text-align: center; padding: 20px;">
+                                    <p class="mb-3">You have not placed any orders yet.</p>
+                                    <a href="{{ route('products') }}" class="cr-button"
+                                        style="">{{ strtoupper('Start Shopping Now') }}</a>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
