@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Shirts', 'description' => 'Men\'s shirts for all occasions', 'image' => null, 'is_active' => true],
             ['name' => 'Trousers', 'description' => 'Stylish trousers for men', 'image' => null, 'is_active' => true],
             ['name' => 'T-Shirts', 'description' => 'Casual T-shirts for daily wear', 'image' => null, 'is_active' => true],
-            ['name' => 'Jackets', 'description' => 'Warm and fashionable jackets', 'image' => null, 'is_active' => true],
             ['name' => 'Shorts', 'description' => 'Comfortable shorts for men', 'image' => null, 'is_active' => true],
             ['name' => 'Men\'s Shoes', 'description' => 'Elegant and durable shoes', 'image' => null, 'is_active' => true],
             ['name' => 'Accessories', 'description' => 'Belts, ties, and more', 'image' => null, 'is_active' => true],
@@ -44,7 +43,7 @@ class DatabaseSeeder extends Seeder
             Category::create($category);
         }
 
-        Product::factory('70')->create();
+        Product::factory('50')->create();
 
         Cart::factory(20)->create();
 

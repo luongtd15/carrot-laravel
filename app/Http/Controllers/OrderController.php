@@ -134,10 +134,12 @@ class OrderController extends Controller
         $userId = Auth::user()->id;
         // $address = Address::with('user')->find($userId)->first();
         // dd($address);
-        $carts = Cart::with('user', 'product')
+        $carts = Cart::whereHas('product') // Chỉ lấy cart có product còn tồn tại
+            ->with('user', 'product')
             ->where('user_id', $userId)
             ->orderByDesc('id')
             ->get();
+
 
         if ($carts->isEmpty()) { // Sử dụng isEmpty() để kiểm tra collection
             return redirect()->back()->with('error', 'No products in your cart. Add at least one to proceed to checkout.');

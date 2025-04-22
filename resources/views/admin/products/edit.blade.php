@@ -47,9 +47,15 @@
                                                     </div>
                                                     <div class="avatar-preview cr-preview">
                                                         <div class="imagePreview cr-div-preview">
-                                                            <img class="cr-image-preview"
-                                                                src="{{ $product->image ? Storage::url($product->image) : 'assets/img/product/preview.jpg' }}"
-                                                                alt="product-preview">
+                                                            @if ($product->image)
+                                                                @if (filter_var($product->image, FILTER_VALIDATE_URL))
+                                                                    <img src="{{ $product->image }}" alt="product-tab-1"
+                                                                        class="cr-image-preview">
+                                                                @else
+                                                                    <img src="{{ Storage::URL($product->image) }}"
+                                                                        alt="product-tab-1" class="cr-image-preview">
+                                                                @endif
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     @error('image')

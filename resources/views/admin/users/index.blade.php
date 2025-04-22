@@ -15,6 +15,11 @@
                     </ul>
                 </div>
             </div>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <a href="{{ route('admin.users.create') }}" class="btn btn-outline-warning">Add</a>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="cr-card card-default product-list">

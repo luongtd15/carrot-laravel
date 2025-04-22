@@ -67,7 +67,7 @@
                                                         class="product-image">
                                                 @endif
                                             @else
-                                                <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                                <div id="mainImage" class="invoice-item-img" data-original-src="">
                                                     No Image
                                                 </div>
                                             @endif

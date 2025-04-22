@@ -132,18 +132,18 @@
                                                             @if ($item->product->image)
                                                                 @if (filter_var($item->product->image, FILTER_VALIDATE_URL))
                                                                     <img id="mainImage" src="{{ $item->product->image }}"
-                                                                        class="invoice-item-image"
+                                                                        class="invoice-item-img"
                                                                         alt="{{ $item->product->name }}"
                                                                         data-original-src="{{ $item->product->image }}">
                                                                 @else
                                                                     <img id="mainImage"
                                                                         src="{{ Storage::url($item->product->image) }}"
-                                                                        class="invoice-item-image"
+                                                                        class="invoice-item-img"
                                                                         alt="{{ $item->product->name }}"
                                                                         data-original-src="{{ Storage::url($item->product->image) }}">
                                                                 @endif
                                                             @else
-                                                                <div id="mainImage" class="invoice-item-image"
+                                                                <div id="mainImage" class="invoice-item-img"
                                                                     data-original-src="">
                                                                     No Image
                                                                 </div>

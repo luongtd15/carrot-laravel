@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         //
-        $products = $category->products()->orderByDesc('id')->paginate(8);
+        $products = $category->products()->where('quantity', '>', 0)->orderByDesc('id')->paginate(8);
         return view('categories.show', [
             'category' => $category,
             'products' => $products

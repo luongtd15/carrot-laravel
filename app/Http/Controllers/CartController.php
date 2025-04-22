@@ -20,7 +20,8 @@ class CartController extends Controller
         }
 
         $userId = Auth::user()->id;
-        $cartItems = Cart::with('user', 'product')
+        $cartItems = Cart::whereHas('product') // Chỉ lấy cart có product còn tồn tại
+            ->with('user', 'product')
             ->where('user_id', $userId)
             ->orderByDesc('id')
             ->paginate(12);
@@ -29,9 +30,14 @@ class CartController extends Controller
         $totalPrice = Cart::where('user_id', $userId)->sum('total_price');
         // dd($cartItems);
 
+        $products = Product::with('category')
+            ->where('quantity', '>', 0)
+            ->orderByDesc('id')
+            ->get();
         return view('cart', [
             'carts' => $cartItems,
             'totalPrice' => $totalPrice,
+            'products' => $products,
         ]);
     }
 

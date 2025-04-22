@@ -13,15 +13,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="cr-left-side-contain slider-animation">
-                                        <h5><span>100%</span> Organic Fruits</h5>
-                                        <h1>Explore fresh & juicy fruits.</h1>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
-                                            beatae consequuntur.</p>
-                                        <div class="cr-last-buttons">
-                                            <a href="shop-left-sidebar.html" class="cr-button">
-                                                shop now
-                                            </a>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -34,15 +26,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="cr-left-side-contain slider-animation">
-                                        <h5><span>100%</span> Organic Vegetables</h5>
-                                        <h1>The best way to stuff your wallet.</h1>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet reiciendis
-                                            beatae consequuntur.</p>
-                                        <div class="cr-last-buttons">
-                                            <a href="shop-left-sidebar.html" class="cr-button">
-                                                shop now
-                                            </a>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -54,58 +38,25 @@
         </div>
     </section>
 
-    <!-- Feature product -->
-    <section class="section-popular-product-shape padding-b-100">
-
-        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+    <section class="section-popular margin-b-100">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="mb-30">
                         <div class="cr-banner">
-                            <h2>Feature Products</h2>
+                            <h2>SHIRTS COLLECTION</h2>
                         </div>
                         <div class="cr-banner-sub-title">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore lacus vel facilisis. </p>
+                            <p>Make your life brighter! </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="product-content row mb-minus-24" id="MixItUpDA2FB7">
-                <div class="col-xl-3 col-lg-4 col-12 mb-24">
-                    <div class="row mb-minus-24 sticky">
-
-                        {{-- <div class="col-lg-12 col-sm-6 col-6 cr-product-box mb-24">
-                            <div class="cr-product-tabs">
-                                <ul>
-                                    <li class="active" data-filter="all">All</li>
-                                    <li data-filter=".snack">Snack</li>
-                                    <li data-filter=".vegetable">Vegetable</li>
-                                    <li data-filter=".fruit">Fruit</li>
-                                    <li data-filter=".bakery">Bakery</li>
-                                </ul>
-                            </div>
-                        </div> --}}
-
-                        <div class="col-lg-12 col-sm-6 col-6 cr-product-box banner-480 mb-24">
-                            <div class="cr-ice-cubes">
-                                <img src="assets/img/product/product-banner.jpg" alt="product banner">
-                                <div class="cr-ice-cubes-contain">
-                                    <h4 class="title">Juicy </h4>
-                                    <h5 class="sub-title">Fruits</h5>
-                                    <span>100% Natural</span>
-                                    <a href="shop-left-sidebar.html" class="cr-button">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-xl-9 col-lg-8 col-12 mb-24">
-                    <div class="row mb-minus-24">
-                        @foreach ($products as $product)
-                            <div class="mix vegetable col-xxl-3 col-xl-4 col-6 cr-product-box mb-24">
+            <div class="row">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="cr-twocolumns-product-1">
+                        @foreach ($shirts as $product)
+                            <div class="slick-slide">
                                 <div class="cr-product-card">
                                     <div class="cr-product-image">
                                         <div class="cr-image-inner zoom-image-hover">
@@ -152,6 +103,112 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature product -->
+    <section class="section-popular-product-shape padding-b-100">
+
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mb-30">
+                        <div class="cr-banner">
+                            <h2>TROUSERS</h2>
+                        </div>
+                        <div class="cr-banner-sub-title">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore lacus vel facilisis. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-content row mb-minus-24" id="MixItUpDA2FB7">
+                <div class="col-xl-3 col-lg-4 col-12 mb-24">
+                    <div class="row mb-minus-24 sticky">
+
+                        {{-- <div class="col-lg-12 col-sm-6 col-6 cr-product-box mb-24">
+                            <div class="cr-product-tabs">
+                                <ul>
+                                    <li class="active" data-filter="all">All</li>
+                                    <li data-filter=".snack">Snack</li>
+                                    <li data-filter=".vegetable">Vegetable</li>
+                                    <li data-filter=".fruit">Fruit</li>
+                                    <li data-filter=".bakery">Bakery</li>
+                                </ul>
+                            </div>
+                        </div> --}}
+
+                        <div class="col-lg-12 col-sm-6 col-6 cr-product-box banner-480 mb-24">
+                            <div class="cr-ice-cubes">
+                                <img src="assets/img/banner/banner-3.jpg" alt="product banner">
+                                <div class="cr-ice-cubes-contain">
+                                    <h4 class="title">Trendy </h4>
+                                    <h5 class="sub-title" style="color: black">Trousers</h5>
+                                    <span style="color: darkblue">New Arrival 2025</span>
+                                    <a href="shop-left-sidebar.html" class="cr-button">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-lg-8 col-12 mb-24">
+                    <div class="row mb-minus-24">
+                        @foreach ($trousers as $product)
+                            <div class="mix vegetable col-xxl-3 col-xl-4 col-6 cr-product-box mb-24">
+                                <div class="cr-product-card">
+                                    <div class="cr-product-image">
+                                        <div class="cr-image-inner zoom-image-hover">
+                                            <img src="{{ Storage::URL($product->image) }}" alt="product-1">
+                                        </div>
+                                        <div class="cr-side-view">
+                                            <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
+                                                role="button">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </div>
+                                        <a class="cr-shopping-bag" href="javascript:void(0)">
+                                            <i class="ri-shopping-bag-line"></i>
+                                        </a>
+                                    </div>
+                                    <div class="cr-product-details">
+                                        <div class="cr-brand">
+                                            <a href="{{ route('category.show', $product->category->id) }}">
+                                                {{ $product->category->name }}
+                                            </a>
+                                            <div class="cr-star">
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-line"></i>
+                                                <p>(4.5)</p>
+                                            </div>
+                                        </div>
+                                        <a href="{{ route('product.show', $product->id) }}" class="title">
+                                            {{ $product->name }}
+                                        </a>
+                                        <p class="cr-price">
+                                            @if (!empty($product->sale_price))
+                                                <span class="new-price">${{ $product->sale_price }}</span>
+                                                <span class="old-price"
+                                                    style="text-decoration: line-through; color: gray;">
+                                                    ${{ $product->price }}
+                                                </span>
+                                            @else
+                                                <span class="new-price">${{ $product->price }}</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
 
                         <style>
                             /* Đổi màu trang hiện tại (active) */
@@ -183,7 +240,115 @@
                         </style>
 
                         <!-- Render Pagination -->
-                        {{ $products->links() }}
+                        {{ $trousers->links() }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-popular-product-shape padding-b-100">
+
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="mb-30">
+                        <div class="cr-banner">
+                            <h2>SHOES</h2>
+                        </div>
+                        <div class="cr-banner-sub-title">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                ut labore lacus vel facilisis. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-content row mb-minus-24" id="MixItUpDA2FB7">
+
+                <div class="col-xl-12 col-lg-12 col-12 mb-24">
+                    <div class="row mb-minus-24">
+                        @foreach ($shoes as $product)
+                            <div class="mix vegetable col-xxl-3 col-xl-4 col-6 cr-product-box mb-24">
+                                <div class="cr-product-card">
+                                    <div class="cr-product-image">
+                                        <div class="cr-image-inner zoom-image-hover">
+                                            <img src="{{ Storage::URL($product->image) }}" alt="product-1">
+                                        </div>
+                                        <div class="cr-side-view">
+                                            <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
+                                                role="button">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </div>
+                                        <a class="cr-shopping-bag" href="javascript:void(0)">
+                                            <i class="ri-shopping-bag-line"></i>
+                                        </a>
+                                    </div>
+                                    <div class="cr-product-details">
+                                        <div class="cr-brand">
+                                            <a href="{{ route('category.show', $product->category->id) }}">
+                                                {{ $product->category->name }}
+                                            </a>
+                                            <div class="cr-star">
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-fill"></i>
+                                                <i class="ri-star-line"></i>
+                                                <p>(4.5)</p>
+                                            </div>
+                                        </div>
+                                        <a href="{{ route('product.show', $product->id) }}" class="title">
+                                            {{ $product->name }}
+                                        </a>
+                                        <p class="cr-price">
+                                            @if (!empty($product->sale_price))
+                                                <span class="new-price">${{ $product->sale_price }}</span>
+                                                <span class="old-price"
+                                                    style="text-decoration: line-through; color: gray;">
+                                                    ${{ $product->price }}
+                                                </span>
+                                            @else
+                                                <span class="new-price">${{ $product->price }}</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <style>
+                            /* Đổi màu trang hiện tại (active) */
+                            .pagination .active span {
+                                background-color: #64b496 !important;
+                                /* Màu cam */
+                                color: white !important;
+                                border-radius: 5px;
+                                padding: 6px 12px;
+                                border: none !important;
+                                /* Xóa viền */
+                            }
+
+                            /* Màu trang không active */
+                            .pagination a {
+                                padding: 6px 12px;
+                                border-radius: 5px;
+                                background-color: #f3f3f3;
+                                color: black;
+                                text-decoration: none;
+                                border: none !important;
+                                /* Xóa viền */
+                            }
+
+                            /* Hover effect */
+                            .pagination a:hover {
+                                background-color: #ddd;
+                            }
+                        </style>
+
+                        <!-- Render Pagination -->
+                        {{ $shoes->links() }}
 
                     </div>
                 </div>
@@ -192,7 +357,7 @@
     </section>
 
     <!-- Product banner -->
-    <section class="section-product-banner padding-b-100">
+    {{-- <section class="section-product-banner padding-b-100">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -225,7 +390,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Services -->
     <section class="section-services padding-b-100">
@@ -331,82 +496,39 @@
     </section>
 
     <!-- Bestseller product -->
-    <section class="section-popular margin-b-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-xxl-7 col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="cr-twocolumns-product">
-                        @foreach ($bestsellers as $product)
-                            <div class="slick-slide">
-                                <div class="cr-product-card">
-                                    <div class="cr-product-image">
-                                        <div class="cr-image-inner zoom-image-hover">
-                                            <img src="assets/img/product/9.jpg" alt="product-1">
-                                        </div>
-                                        <div class="cr-side-view">
-                                            <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
-                                                role="button">
-                                                <i class="ri-eye-line"></i>
-                                            </a>
-                                        </div>
-                                        <a class="cr-shopping-bag" href="javascript:void(0)">
-                                            <i class="ri-shopping-bag-line"></i>
-                                        </a>
-                                    </div>
-                                    <div class="cr-product-details">
-                                        <div class="cr-brand">
-                                            <a href="{{ route('category.show', $product->category->id) }}">
-                                                {{ $product->category->name }}
-                                            </a>
-                                            <div class="cr-star">
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-line"></i>
-                                                <p>(4.5)</p>
-                                            </div>
-                                        </div>
-                                        <a href="{{ route('product.show', $product->id) }}" class="title">
-                                            {{ $product->name }}
-                                        </a>
-                                        <p class="cr-price">
-                                            @if (!empty($product->sale_price))
-                                                <span class="new-price">${{ $product->sale_price }}</span>
-                                                <span class="old-price"
-                                                    style="text-decoration: line-through; color: gray;">
-                                                    ${{ $product->price }}
-                                                </span>
-                                            @else
-                                                <span class="new-price">${{ $product->price }}</span>
-                                            @endif
-                                        </p>
+    {{-- <section class="section-hero padding-b-100 next">
+        <div class="cr-slider swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="cr-hero-banner cr-banner-image-three">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cr-left-side-contain slider-animation">
+
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div class="col-xxl-5 col-xl-6 col-lg-6 col-md-12" data-aos="fade-up" data-aos-duration="1000">
-                    <div class="cr-products-rightbar">
-                        <img src="assets/img/product/products-rightview.jpg" alt="products-rightview">
-                        <div class="cr-products-rightbar-content">
-                            <h4>Stylish & Trendy <br> Outfits</h4>
-                            <div class="cr-off">
-                                <a href="" class="cr-button">
-                                    <span style="color: white">GET THEM
-                                        <code style="color: white">NOW</code>
-                                    </span>
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="swiper-slide">
+                    <div class="cr-hero-banner cr-banner-image-one">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cr-left-side-contain slider-animation">
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="swiper-pagination"></div>
         </div>
-    </section>
+    </section> --}}
     <!-- Model -->
     <div class="modal fade quickview-modal" id="quickview" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered cr-modal-dialog">

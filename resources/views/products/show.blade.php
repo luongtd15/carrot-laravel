@@ -68,7 +68,7 @@
                                                     class="product-image">
                                             @endif
                                         @else
-                                            <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                            <div id="mainImage" class="invoice-item-img" data-original-src="">
                                                 No Image
                                             </div>
                                         @endif
@@ -274,7 +274,7 @@
                 <div class="col-lg-12">
                     <div class="mb-30">
                         <div class="cr-banner">
-                            <h2>Bestseller Products</h2>
+                            <h2>Similar Products</h2>
                         </div>
                         <div class="cr-banner-sub-title">
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -301,7 +301,7 @@
                                                         class="product-image">
                                                 @endif
                                             @else
-                                                <div id="mainImage" class="invoice-item-image" data-original-src="">
+                                                <div id="mainImage" class="invoice-item-img" data-original-src="">
                                                     No Image
                                                 </div>
                                             @endif
@@ -328,7 +328,8 @@
                                                 <p>(4.5)</p>
                                             </div>
                                         </div>
-                                        <a href="" class="title">{{ $product->name }}</a>
+                                        <a href="{{ route('product.show', $product->id) }}"
+                                            class="title">{{ $product->name }}</a>
                                         <p class="cr-price"><span class="new-price">${{ $product->price }}</span>
                                             @if (!empty($product->sale_price))
                                                 <span class="old-price">${{ $product->sale_price }}</span>

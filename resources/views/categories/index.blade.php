@@ -61,7 +61,15 @@
                                 <div class="cr-product-card">
                                     <div class="cr-product-image">
                                         <div class="cr-image-inner zoom-image-hover">
-                                            <img src="assets/img/product/1.jpg" alt="product-1">
+                                            @if ($category->image)
+                                                @if (filter_var($category->image, FILTER_VALIDATE_URL))
+                                                    <img src="{{ $category->image }}" alt="product-tab-1"
+                                                        class="product-image">
+                                                @else
+                                                    <img src="{{ Storage::URL($category->image) }}" alt="product-tab-1"
+                                                        class="product-image">
+                                                @endif
+                                            @endif
                                         </div>
                                         <div class="cr-side-view">
                                             <a class="model-oraganic-product" data-bs-toggle="modal" href="#quickview"
@@ -185,8 +193,8 @@
                                 </div>
                                 <div class="cr-add-card">
                                     <div class="cr-qty-main">
-                                        <input type="text" placeholder="." value="1" minlength="1" maxlength="20"
-                                            class="quantity">
+                                        <input type="text" placeholder="." value="1" minlength="1"
+                                            maxlength="20" class="quantity">
                                         <button type="button" id="add_model" class="plus">+</button>
                                         <button type="button" id="sub_model" class="minus">-</button>
                                     </div>

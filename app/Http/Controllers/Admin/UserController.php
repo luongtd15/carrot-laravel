@@ -25,6 +25,8 @@ class UserController extends Controller
     public function create()
     {
         //
+        $users = User::all()->sortByDesc('id');
+        return view('admin.users.add', compact('users'));
     }
 
     /**
@@ -33,6 +35,19 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:11|unique:users,phone',
+            'password' => 'required|string|min:8',
+            'role' => 'required|in:user,admin',
+        ]);
+
+        $validated['password'] = bcrypt($validated['password']);
+
+        $user = User::create($validated);
+        return redirect()->route('admin.users.edit', $user->id)
+            ->with('success', 'Create user successfully');
     }
 
     /**

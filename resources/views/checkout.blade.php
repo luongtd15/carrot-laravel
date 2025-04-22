@@ -37,10 +37,17 @@
                                             <div class="cr-product-inner">
                                                 <div class="cr-pro-image-outer">
                                                     <div class="cr-pro-image">
-                                                        <a href="" class="image">
-                                                            <img class="main-image"
-                                                                src="{{ asset('assets/img/product/1.jpg') }}"
-                                                                alt="Product">
+                                                        <a href="{{ route('product.show', $item->product->id) }}"
+                                                            class="image">
+                                                            @if ($item->product->image)
+                                                                @if (filter_var($item->product->image, FILTER_VALIDATE_URL))
+                                                                    <img src="{{ $item->product->image }}"
+                                                                        alt="product-tab-1" class="product-image">
+                                                                @else
+                                                                    <img src="{{ Storage::URL($item->product->image) }}"
+                                                                        alt="product-tab-1" class="product-image">
+                                                                @endif
+                                                            @endif
                                                         </a>
                                                     </div>
                                                 </div>

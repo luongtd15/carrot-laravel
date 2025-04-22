@@ -368,7 +368,8 @@
                                     <ul class="dropdown-menu">
                                         @foreach ($categories as $category)
                                             <li>
-                                                <a class="dropdown-item" href="">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('category.show', $category->id) }}">
                                                     {{ $category->name }}
                                                 </a>
                                             </li>
@@ -501,7 +502,7 @@
                                 51 Green St.Huntington ohaio beach ontario, NY 11746 KY 4783, USA.
                             </li>
                             <li class="mail-icon">
-                                <a href="javascript:void(0)">example@email.com</a>
+                                <a href="javascript:void(0)">carrotclothes@email.com</a>
                             </li>
                             <li class="phone-icon">
                                 <a href="javascript:void(0)"> +91 123 4567890</a>

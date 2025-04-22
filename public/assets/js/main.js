@@ -269,6 +269,30 @@
             ]
         });
 
+        $('.cr-twocolumns-product-1').slick({
+            infinite: true,
+            dots: false,
+            arrows: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            responsive: [
+                {
+                    breakpoint: 1400,
+                    settings: {
+                        slidesToShow: 2,
+                    }
+                },
+                {
+                    breakpoint: 481,
+                    settings: {
+                        slidesToShow: 1,
+                    }
+                }
+            ]
+        });
+
         /* tablist-swiper */
         var swiper = new Swiper('.tablist-swiper', {
             direction: 'vertical',

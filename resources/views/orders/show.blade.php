@@ -88,17 +88,23 @@
                                             <div class="cr-product-inner">
                                                 <div class="cr-pro-image-outer">
                                                     <div class="cr-pro-image">
-                                                        <a href="" class="image">
-                                                            <img class="main-image"
-                                                                src="{{ asset('assets/img/product/1.jpg') }}"
-                                                                alt="Product">
+                                                        <a href="{{ route('product.show', $item->product->id) }}"
+                                                            class="image">
+                                                            @if ($item->product->image)
+                                                                @if (filter_var($item->product->image, FILTER_VALIDATE_URL))
+                                                                    <img src="{{ $item->product->image }}"
+                                                                        alt="product-tab-1" class="product-image">
+                                                                @else
+                                                                    <img src="{{ Storage::URL($item->product->image) }}"
+                                                                        alt="product-tab-1" class="product-image">
+                                                                @endif
+                                                            @endif
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <div class="cr-pro-content cr-product-details">
                                                     <h5 class="cr-pro-title">
-                                                        <a
-                                                            href="{{ route('product.show', ['id' => $item->product->id]) }}">
+                                                        <a href="{{ route('product.show', ['id' => $item->product->id]) }}">
                                                             {{ $item->product->name }} <span>
                                                                 <span class="cr-pro-quantity">x{{ $item->quantity }}</span>
                                                         </a>

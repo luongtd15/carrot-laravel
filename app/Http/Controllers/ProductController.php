@@ -19,6 +19,7 @@ class ProductController extends Controller
     {
         //
         $products = Product::with('category')
+            ->where('quantity', '>', 0)
             ->orderByDesc('id')
             ->paginate(12);
         // dd($products);
@@ -49,8 +50,10 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-        $product = Product::with(['category', 'comments', 'images'])->findOrFail($id);
+        $product = Product::with(['category', 'comments', 'images'])
+            ->where('quantity', '>', 0)->findOrFail($id);
         $bestsellers = Product::with('category')
+            ->where('category_id', $product->category_id)
             ->orderByDesc('sold_count')
             ->take(10)
             ->get();

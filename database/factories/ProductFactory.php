@@ -19,15 +19,7 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->randomElement([
-            'White Men\'s Shirt',
-            'Office Trousers',
-            'Basic Men\'s T-Shirt',
-            'Bomber Jacket',
-            'Khaki Shorts',
-            'Leather Dress Shoes',
-            'Men\'s Belt'
-        ]);
+        $name = fake()->unique()->word(); // Unique product name
 
         $price = fake()->randomFloat(2, 10, 200); // Price from $10 to $200
         $salePrice = fake()->optional(0.3)->randomFloat(2, 5, $price - 1);
@@ -35,7 +27,7 @@ class ProductFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name . '-' . fake()->unique()->numberBetween(1, 1000)), // Unique slug
-            'description' => fake()->paragraph(), // Random paragraph in English
+            'description' => fake()->paragraph(5), // Random paragraph in English
             'short_description' => fake()->sentence(5), // Short sentence in English
             'category_id' => Category::inRandomOrder()->first()->id,
             'price' => $price, // Price from $10 to $200

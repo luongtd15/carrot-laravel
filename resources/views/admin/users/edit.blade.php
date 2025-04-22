@@ -54,9 +54,9 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <div class="cr-vendor-detail">
-                                        <h6>Contact nubmer</h6>
+                                        <h6>Contact number</h6>
                                         <ul>
-                                            <li><strong>Phone Nubmer : </strong>{{ $user->phone }}</li>
+                                            <li><strong>Phone Number : </strong>{{ $user->phone }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -64,11 +64,15 @@
                                     <div class="cr-vendor-detail">
                                         <h6>Address</h6>
                                         <ul>
-                                            @foreach ($user->addresses as $address)
+                                            @forelse ($user->addresses as $address)
                                                 <li>
                                                     - {{ $address->full_address }}
                                                 </li>
-                                            @endforeach
+                                            @empty
+                                                <li>
+                                                    <span class="text-danger">No address found.</span>
+                                                </li>
+                                            @endforelse
                                         </ul>
                                     </div>
                                 </div>

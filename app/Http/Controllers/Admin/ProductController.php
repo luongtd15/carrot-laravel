@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
@@ -229,6 +230,7 @@ class ProductController extends Controller
     {
         //
         $product = Product::findOrFail($id);
+        Cart::where('product_id', $product->id)->delete();
         $product->update(['is_active' => 0]);
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
