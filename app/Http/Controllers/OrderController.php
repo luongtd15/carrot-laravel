@@ -45,10 +45,12 @@ class OrderController extends Controller
             // Thêm thông báo lỗi khác nếu cần
         ]);
 
-        $carts = Cart::with('user', 'product')
+        $carts = Cart::whereHas('product')->with('user', 'product')
             ->where('user_id', $userId)
             ->orderByDesc('id')
             ->get();
+
+        // dd($carts);
 
         if ($carts->isEmpty()) {
             return redirect()->back()->with('error', 'Giỏ hàng của bạn đang trống!');

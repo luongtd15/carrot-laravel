@@ -17,6 +17,7 @@ class Comment extends Model
         'user_id',
         'content',
         'rating',
+        'order_id',
     ];
 
     public function product()
@@ -26,5 +27,10 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

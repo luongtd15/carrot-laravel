@@ -43,5 +43,10 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
     protected $dates = ['deleted_at']; // Đảm bảo cột deleted_at được xử lý như ngày giờ
 }

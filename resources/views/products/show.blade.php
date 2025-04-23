@@ -138,7 +138,7 @@
                 </div>
             </div>
 
-            <div class="row" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600">
+            <div class="row" data-aos="fade-up" data-aos-duration="400" data-aos-delay="200">
                 <div class="col-12">
                     <div class="cr-paking-delivery">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -146,11 +146,6 @@
                                 <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
                                     data-bs-target="#description" type="button" role="tab" aria-controls="description"
                                     aria-selected="true">Description</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review"
-                                    type="button" role="tab" aria-controls="review"
-                                    aria-selected="false">Comment</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -162,33 +157,57 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
+                <div class="col-12">
+                    <div class="cr-paking-delivery">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review"
+                                    type="" role="tab" aria-controls="review"
+                                    aria-selected="false">Comment</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="review" role="tabpanel"
+                                aria-labelledby="review-tab">
                                 <div class="cr-tab-content-from">
                                     <div class="post">
-                                        @foreach ($product->comments as $comment)
-                                            <div class="content mt-30">
-                                                <div class="details">
-                                                    <span class="date">{{ $comment->created_at }}</span>
-                                                    <span class="name">{{ $comment->user->name }}</span>
+                                        <div id="comment-list">
+                                            @foreach ($comments as $comment)
+                                                <div class="content mt-30">
+                                                    <div class="details">
+                                                        <span class="date">{{ $comment->created_at }}</span>
+                                                        <span class="name">{{ $comment->user->name }}</span>
+                                                    </div>
+                                                    <div class="cr-t-review-rating">
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $comment->rating)
+                                                                <i class="ri-star-s-fill"></i>
+                                                            @else
+                                                                <i class="ri-star-s-line"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
                                                 </div>
-                                                <div class="cr-t-review-rating">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        @if ($i <= $comment->rating)
-                                                            <i class="ri-star-s-fill"></i>
-                                                        @else
-                                                            <i class="ri-star-s-line"></i>
-                                                        @endif
-                                                    @endfor
+                                                <div class="content">
+                                                    <p>{{ $comment->content }}</p>
                                                 </div>
-                                            </div>
-                                            <div class="content">
-                                                <p>{{ $comment->content }}</p>
-                                            </div>
-                                            <hr>
-                                        @endforeach
+                                                <hr>
+                                            @endforeach
+                                        </div>
+
+                                        <div>
+                                            {{ $comments->links() }}
+                                        </div>
                                     </div>
+
                                     <div id="comment-form"></div>
-                                    @if (Auth::check() && Auth::user()->role == 'user' && $canReview)
+                                    @if (Auth::check() && Auth::user()->role == 'user' && $canReview && isset($validOrderId))
                                         <h4 class="heading">Add a Review</h4>
                                         <form
                                             action="{{ route('product.comment.store', [
@@ -221,6 +240,11 @@
                                                 <input name="product_id" type="hidden"
                                                     value="{{ $product->id ?? '' }}">
                                             </div>
+                                            <div class="cr-ratting-input">
+                                                <input type="hidden" name="order_id" value="{{ $validOrderId }}">
+                                            </div>
+
+
                                             <div class="cr-ratting-input">
                                                 <textarea name="content" placeholder="Enter Your Comment" class="cr-ratting-input"></textarea>
                                             </div>
@@ -521,7 +545,6 @@
                 });
             }
 
-            // Xử lý nút + và - trong giỏ hàng
             $(".cart-qty-plus-minus .plus").off('click').on('click', function() {
                 var parent = $(this).closest(".cart-qty-plus-minus");
                 var input = parent.find(".quantity");
@@ -557,22 +580,23 @@
 
                 if (newVal < 1) newVal = 1;
                 input.val(newVal);
-
                 timeout = setTimeout(function() {
                     updateCart(cartId, newVal);
                 }, 500);
             });
+            //Xử lý nút + và - trong trang chi tiết sản phẩm 
 
-            // Xử lý nút + và - trong trang chi tiết sản phẩm
-            $('.cr-qty-main .plus').off('click').on('click', function() {
-                var input = $(this).siblings('.quantity');
-                var currentVal = parseInt(input.val()) || 1;
-                input.val(currentVal + 1);
-            });
-
+            $('.cr-qty-main .plus').off('click').on('click',
+                function() {
+                    var
+                        input = $(this).siblings('.quantity');
+                    var currentVal = parseInt(input.val()) || 1;
+                    input.val(currentVal + 1);
+                });
             $('.cr-qty-main .minus').off('click').on('click', function() {
                 var input = $(this).siblings('.quantity');
-                var currentVal = parseInt(input.val()) || 1;
+                var
+                    currentVal = parseInt(input.val()) || 1;
                 if (currentVal > 1) {
                     input.val(currentVal - 1);
                 }
@@ -622,13 +646,11 @@
                     s.classList.toggle('active', index < currentRating);
                 });
             }
-
             const hash = window.location.hash;
-
-            if (hash === '#review-tab') {
-                const reviewTab = document.querySelector('button[data-bs-target="#review"]');
-                if (reviewTab) {
-                    // Sử dụng Bootstrap tab API để kích hoạt
+            if (hash ===
+                '#review-tab') {
+                const reviewTab = document.querySelector('button[data-bs-target="#review" ]');
+                if (reviewTab) { // Sử dụng Bootstrap tab API để kích hoạt 
                     const tab = new bootstrap.Tab(reviewTab);
                     tab.show();
                 }

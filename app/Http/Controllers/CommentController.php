@@ -35,6 +35,7 @@ class CommentController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'content' => 'required|string|max:1000',
             'user_id' => 'required|exists:users,id',
+            'order_id' => 'required|exists:orders,id',
             'product_id' => 'required|exists:products,id',
         ]);
 

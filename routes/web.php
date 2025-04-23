@@ -62,6 +62,9 @@ Route::get('/categories', action: [CategoryController::class, 'index'])->name('c
 Route::get('/category/{category}', action: [CategoryController::class, 'show'])->name('category.show');
 Route::get('/products', action: [ProductController::class, 'index'])->name('products');
 Route::get('/product/{id}', action: [ProductController::class, 'show'])->name('product.show');
+Route::get('/product/{product}/comments/load', [ProductController::class, 'loadMoreComments'])->name('product.comments.load');
+
+
 
 
 

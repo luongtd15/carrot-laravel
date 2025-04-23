@@ -52,41 +52,60 @@ class ProductController extends Controller
         //
         $product = Product::with(['category', 'comments', 'images'])
             ->where('quantity', '>', 0)->findOrFail($id);
+        $comments = $product->comments()->paginate(4);
         $bestsellers = Product::with('category')
             ->where('category_id', $product->category_id)
             ->orderByDesc('sold_count')
             ->take(10)
             ->get();
 
+        $validOrderId = null;
         $canReview = false;
 
         if (Auth::check()) {
-            $userId = Auth::user()->id;
+            $userId = Auth::id();
 
-            // Tìm đơn hàng hợp lệ
-            $validOrder = OrderDetail::where('product_id', $product->id)
-                ->whereHas('order', function ($query) use ($userId) {
-                    $query->where('user_id', $userId)
-                        ->where('status', 'completed')
-                        ->whereDate('updated_at', '>=', now()->subDays(7)); // hoặc 'completed_at' nếu có
-                })
-                ->first();
+            // Kiểm tra xem người dùng đã đánh giá chưa (check trong session)
+            $reviewedOrder = session('reviewed_orders.' . $product->id);
 
-            if ($validOrder) {
-                // Kiểm tra chưa có comment nào của user cho sản phẩm này
-                $hasCommented = Comment::where('user_id', $userId)
-                    ->where('product_id', $product->id)
-                    ->exists();
+            if (!$reviewedOrder) {
+                // Lấy các đơn hàng hợp lệ chứa sản phẩm này
+                $validOrders = OrderDetail::where('product_id', $product->id)
+                    ->whereHas('order', function ($query) use ($userId) {
+                        $query->where('user_id', $userId)
+                            ->where('status', 'completed')
+                            ->whereDate('updated_at', '>=', now()->subDays(7));
+                    })
+                    ->with('order')
+                    ->get();
 
-                $canReview = !$hasCommented;
+                foreach ($validOrders as $orderDetail) {
+                    // Kiểm tra xem sản phẩm này trong đơn hàng đã được đánh giá chưa
+                    $hasCommented = Comment::where('user_id', $userId)
+                        ->where('product_id', $orderDetail->product_id)
+                        ->where('order_id', $orderDetail->order_id)
+                        ->exists();
+
+                    if (!$hasCommented) {
+                        $canReview = true;
+                        $validOrderId = $orderDetail->order_id;
+                        break;
+                    }
+                }
+            } else {
+                $canReview = false;
             }
         }
+
         return view('products.show', [
+            'comments' => $comments,
             'product' => $product,
             'bestsellers' => $bestsellers,
             'canReview' => $canReview,
+            'validOrderId' => $validOrderId ?? null, // Đảm bảo không có lỗi nếu không có order_id
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

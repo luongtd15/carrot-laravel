@@ -14,11 +14,7 @@ class CommentSeeder extends Seeder
     public function run(): void
     {
         //
-        Comment::factory(3)
-            ->create(
-                [
-                    'product_id' => 69,
-                ]
-            );
+        Comment::factory('100')
+            ->create();
     }
 }

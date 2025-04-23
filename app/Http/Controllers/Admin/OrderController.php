@@ -14,7 +14,7 @@ class OrderController extends Controller
     public function index()
     {
         //
-        $orders = Order::with('user', 'orderDetails.product', 'address')->orderByDesc('id')->get();
+        $orders = Order::with('user', 'orderDetails.product', 'address')->latest()->get();
         return view('admin.orders.index', compact('orders'));
     }
 
